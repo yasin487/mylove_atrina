@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>به نام تو ❤️</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;700&display=swap');
+        
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(145deg, #0f0c1a, #1e1428);
+            font-family: 'Vazirmatn', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 1rem;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* باران قلب‌ها */
+        .hearts-rain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .heart-drop {
+            position: absolute;
+            top: -50px;
+            color: #ff3388;
+            font-size: 20px;
+            animation: fall linear infinite;
+            opacity: 0.5;
+        }
+        @keyframes fall {
+            to { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+        }
+
+        .card {
+            position: relative;
+            z-index: 1;
+            max-width: 750px;
+            width: 100%;
+            background: rgba(255, 240, 250, 0.08);
+            backdrop-filter: blur(20px);
+            border-radius: 60px 20px 60px 20px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.7), 0 0 0 2px #ff99cc55 inset;
+            padding: 2.8rem 2rem;
+            text-align: center;
+            border: 1px solid #ffb3d966;
+            animation: float 4s ease-in-out infinite;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-12px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* ساعت دیجیتال */
+        .clock {
+            font-size: 2.2rem;
+            font-weight: 300;
+            color: #ffc1d6;
+            text-shadow: 0 0 30px #ff66aa66;
+            letter-spacing: 4px;
+            margin-bottom: 0.3rem;
+            font-family: 'Courier New', monospace;
+            direction: ltr;
+        }
+
+        /* تاریخ آشنایی */
+        .anniversary {
+            font-size: 1rem;
+            color: #ffaacc;
+            background: rgba(255, 50, 120, 0.15);
+            padding: 0.4rem 1.2rem;
+            border-radius: 30px;
+            display: inline-block;
+            border: 1px solid #ff66aa44;
+            margin-bottom: 0.8rem;
+            backdrop-filter: blur(4px);
+        }
+        .anniversary span {
+            color: #ff88bb;
+            font-weight: 700;
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            color: #ffe2f0;
+            text-shadow: 0 0 20px #ff66aa, 0 0 40px #ff3388;
+            margin-bottom: 0.3rem;
+        }
+        .sub {
+            font-size: 1.2rem;
+            color: #ffc1d6;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px dashed #ff88bb66;
+            padding-bottom: 0.8rem;
+            opacity: 0.9;
+        }
+
+        .message-box {
+            background: rgba(0, 0, 0, 0.25);
+            padding: 1.8rem 1.2rem;
+            border-radius: 40px 10px 40px 10px;
+            border-right: 4px solid #ff66aa;
+            border-left: 4px solid #ff66aa;
+            margin: 1.5rem 0;
+            box-shadow: 0 0 40px #ff44aa22;
+        }
+        .message-box p {
+            font-size: 1.2rem;
+            line-height: 2.4rem;
+            color: #fff0f7;
+        }
+        .message-box .heart {
+            color: #ff2a7a;
+            font-size: 2rem;
+            display: inline-block;
+            animation: pulse 1.2s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.4); }
+            100% { transform: scale(1); }
+        }
+
+        .btn-audio {
+            background: linear-gradient(135deg, #ff3388, #ff66aa);
+            border: none;
+            padding: 16px 36px;
+            border-radius: 60px;
+            color: #1a0b1f;
+            font-weight: bold;
+            font-size: 1.2rem;
+            cursor: pointer;
+            box-shadow: 0 0 40px #ff3388aa;
+            margin-top: 0.5rem;
+            border: 1px solid #ff99cc;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            transition: 0.3s;
+        }
+        .btn-audio:hover { transform: scale(1.05); background: #ff55aa; }
+        .btn-audio:active { transform: scale(0.95); }
+
+        audio { display: none; }
+
+        .special-message {
+            background: rgba(255, 50, 120, 0.15);
+            padding: 0.8rem 1.2rem;
+            border-radius: 30px;
+            margin-top: 1.5rem;
+            border: 1px solid #ff66aa66;
+            color: #ffe2f0;
+            font-size: 1rem;
+            display: inline-block;
+        }
+<source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg" />
+        .footer-note {
+            margin-top: 2rem;
+            color: #bb88aa;
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+        .emoji-big { font-size: 3rem; display: block; margin: 0.5rem 0; }
+
+        /* تایمر */
+        .timer {
+            margin-top: 0.5rem;
+            font-size: 0.95rem;
+            color: #ffaacc;
+            background: rgba(0,0,0,0.2);
+            padding: 0.4rem 1rem;
+            border-radius: 30px;
+            display: inline-block;
+        }
+        .timer span {
+            color: #ff88bb;
+            font-weight: 700;
+        }
+
+        /* اسکرول */
+        .card::-webkit-scrollbar {
+            width: 4px;
+        }
+        .card::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .card::-webkit-scrollbar-thumb {
+            background: #ff66aa66;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- باران قلب‌ها -->
+<div class="hearts-rain" id="heartsRain"></div>
+
+<div class="card">
+    <!-- ساعت دیجیتال -->
+    <div class="clock" id="clock">00:00:00</div>
+
+    <!-- تاریخ آشنایی -->
+    <div class="anniversary">
+        💕 تاریخ آشنایی ما: <span>۱۴۰۵/۵/۱۲</span> — ساعت <span>۲۳:۰۰</span> 💕
+    </div>
+
+    <!-- تایمر -->
+    <div class="timer" id="timer">
+        ❤️ از اون شب تا حالا <span id="daysCount">۰</span> روز می‌گذره...
+    </div>
+
+    <h1>🌸 عزیز دلم 🌸</h1>
+    <div class="sub">✦ برای تو که دنیای منی ✦</div>
+
+    <div class="message-box">
+        <p>
+            <span class="heart">❤️</span><br />
+            یادش بخیر اون شب قشنگ...<br />
+            ساعت ۲۳:۰۰، تاریخ ۱۲ مرداد ۱۴۰۵<br />
+            دقیقاً همون لحظه‌ای که دنیام عوض شد.<br />
+            <br />
+            از همون شب، فهمیدم که <strong>تو</strong> همون کسی هستی که<br />
+            قراره آرامش دلم باشی،<br />
+            قراره کنارم باشی تو همه‌ی روزای سخت و قشنگ،<br />
+            قراره عشق بی‌نهایت زندگی‌ام باشی.<br />
+            <br />
+            <span style="font-size:1.8rem;">💫✨💫</span>
+        </p>
+    </div>
+
+    <button class="btn-audio" id="playBtn">
+        <span>▶</span> بزن تا آهنگت پلی شه ❤️
+    </button>
+
+    <audio id="myAudio" loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg" />
+    </audio>
+
+    <div class="special-message">
+        💕 هر روز با تو، قشنگ‌تر از دیروزه... ممنونم که هستی 💕
+    </div>
+
+    <div class="footer-note">
+        <span class="emoji-big">💋</span>
+        مالِ خودِ خودِ خودِ منی ❤️
+    </div>
+</div>
+
+<script>
+    // ====== ساعت دیجیتال ======
+    function updateClock() {
+        const now = new Date();
+        const hours = String(now.getHours()).padStart(2, '0');
+        const minutes = String(now.getMinutes()).padStart(2, '0');
+        const seconds = String(now.getSeconds()).padStart(2, '0');
+        document.getElementById('clock').textContent = hours + ':' + minutes + ':' + seconds;
+    }
+    updateClock();
+    setInterval(updateClock, 1000);
+
+    // ====== تایمر ======
+    function updateTimer() {
+        const startDate = new Date(2026, 7, 12, 23, 0, 0);
+        const now = new Date();
+        const diff = Math.floor((now - startDate) / (1000 * 60 * 60 * 24));
+        document.getElementById('daysCount').textContent = diff >= 0 ? diff : 0;
+    }
+    updateTimer();
+
+    // ====== باران قلب‌ها ======
+    const rainContainer = document.getElementById('heartsRain');
+    for (let i = 0; i < 35; i++) {
+        const heart = document.createElement('div');
+        heart.className = 'heart-drop';
+        heart.innerHTML = '❤️';
+        heart.style.left = Math.random() * 100 + '%';
+        heart.style.fontSize = (10 + Math.random() * 35) + 'px';
+        heart.style.animationDuration = (6 + Math.random() * 12) + 's';
+        heart.style.animationDelay = (Math.random() * 12) + 's';
+        rainContainer.appendChild(heart);
+    }
+
+    // ====== پخش آهنگ ======
+    const audio = document.getElementById('myAudio');
+    const btn = document.getElementById('playBtn');
+
+    btn.addEventListener('click', function() {
+        if (audio.paused) {
+            audio.play().then(() => {
+                btn.innerHTML = '<span>⏸</span> آهنگ داره پلی میشه 🎶';
+            }).catch(() => {
+                alert('آهنگ پیدا نشد! لینک رو عوض کن 😊');
+            });
+        } else {
+            audio.pause();
+            btn.innerHTML = '<span>▶</span> بزن تا آهنگت پلی شه ❤️';
+        }
+    });
+
+    audio.addEventListener('ended', function() {
+        btn.innerHTML = '<span>▶</span> بزن تا آهنگت پلی شه ❤️';
+    });
+</script>
+
+</body>
+</html>
